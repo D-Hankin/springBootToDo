@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do</title>
+</head>
+<body>
+    <h1>Get Things Done</h1>
+    <ul>
+        <li th:each="item : ${toDoItems}"><span th:text="${item.name}"></span></li>
+    </ul>
+</body>
+</html>
