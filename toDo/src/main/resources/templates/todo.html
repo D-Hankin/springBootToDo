@@ -7,8 +7,17 @@
 </head>
 <body>
     <h1>Get Things Done</h1>
+    <div>
+        <form method="post" th:action="@{/new-item}" th:object="${newToDo}">
+            <input type="text" th:field="*{name}">
+            <input type="submit">
+        </form>
+    </div>
     <ul>
-        <li th:each="item : ${toDoItems}"><span th:text="${item.name}"></span></li>
+        <li th:id="${item.id}" th:each="item : ${toDoItems}">
+            <span th:text="${item.name}"></span> 
+            <a th:href="@{/remove-item/{itemId}(itemId=${item.id})}">[X]</a>
+        </li>
     </ul>
 </body>
 </html>
