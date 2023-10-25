@@ -12,18 +12,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ToDoController {
 
     private static final List<Todo> toDoItems = new ArrayList<>();
-    static {
-        toDoItems.add(new Todo("Print list", 1));
-        toDoItems.add(new Todo("Add new item", 2));
-        toDoItems.add(new Todo("Remove item", 3));
-        toDoItems.add(new Todo("Done!", 4));
-    }
-
-    
+       
     @GetMapping("/todo")
     String getToDo(Model model) {
         model.addAttribute("toDoItems", toDoItems);
+        model.addAttribute("newToDo", new Todo(null, 0));
         return "todo";
+    }
+
+    @PostMapping("/new-item")
+    String newItem(@RequestParam("name") String name) {
+        toDoItems.add(new Todo(name, toDoItems.size() + 1));
+        return "redirect:/todo"; 
+    }
+
+    @GetMapping("/remove-item/{itemId}")
+    String removeItem(@PathVariable int itemId) {
+        toDoItems.removeIf(item -> item.getId() == itemId);
+        return "redirect:/todo";
     }
 
 }
